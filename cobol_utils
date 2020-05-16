@@ -1,0 +1,123 @@
+# Download GNUCobol
+https://sourceforge.net/projects/open-cobol/
+
+# Dependências
+dnf install -y 
+    gmp-devel.x86_64 
+    libdb-devel
+    ncurses-devel
+
+cd gnucobol-3.0-rc1
+tar xvf gnucobol-3.0-rc1.tar.xz
+
+./configure && make && make check && make install
+
+sudo updatedb
+sudo locate libcob.so
+ 
+# You can add /usr/lib64 into LD_LIBRARY_PATH,
+export LD_LIBRARY_PATH=<caminho biblioteca>:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
+
+cobcrun -r
+
+Colunas 1 à 6   - Áres de numeração sequencial
+Coluna 7 	    - Área de indicação
+Colunas 8 à 11  - Área A
+Colunas 12 à 72 - Área B
+Colunas 73 à 80 - Comentários
+
+* - linha inteira se transforma em um comentário
+/ - além de tratar a linha como comentario gera um .LST
+$ - compilação condicional
+- indica a contiuação de uma linha anterior
+
+Cabeçalho completo:
+
+IDENTIFICATION DIVISION.
+PROGRAM-ID.
+AUTHOR.
+INSTALATION.
+DATE-WRITTEN
+DATE-COMPILED.
+SECURITY.
+
+# Como usar?
+vim hello.cob
+
+* Sample COBOL program
+        IDENTIFICATION DIVISION.
+        PROGRAM-ID. hello.
+        PROCEDURE DIVISION.
+        DISPLAY "Hello, world!".
+        STOP RUN.
+            
+:wq!
+
+# Compile and execute
+cobc -x hello.cob
+./hello
+     Hello, world!
+
+# Historical
+
+000100 HELLO.COB GnuCOBOL example
+000200 IDENTIFICATION DIVISION.
+000300 PROGRAM-ID. hello.
+000400 PROCEDURE DIVISION.
+000500     DISPLAY "Hello, world!".
+000600     STOP RUN.
+
+# Compilation and execution:
+
+cobc -x HELLO.COB
+./HELLO
+Hello, world!
+
+# Modern, free format
+*> GnuCOBOL Hello World example
+
+identification division.
+program-id. hello.
+procedure division.
+display "Hello, world!" 
+end-display.
+goback.
+
+# Compilation and execution:
+
+cobc -x -free hello.cob
+./hello
+Hello, world!
+
+# Shortest
+# The shortest valid COBOL program, with the relaxed syntax option in GnuCOBOL 2.0, is a 
+# blank file. Compilation and execution:
+
+cobc -x -frelax-syntax ./empty.cob
+./empty.cob: 1: Warning: PROGRAM-ID header missing - assumed
+./empty
+
+
+# For earlier versions and with relaxed syntax:
+
+display"Hello, world!".
+
+# Compilation and execution:
+
+cobc -x -frelax-syntax -free hello.cob
+hello.cob: 1: Warning: PROGRAM-ID header missing - assumed
+hello.cob: 1: Warning: PROCEDURE DIVISION header missing - assumed
+./hello
+Hello, world!
+
+# Without relaxed syntax and with any version of GnuCOBOL, GNU Cobol or OpenCOBOL. 
+# (Note, there are 7 leading spaces to conform to FIXED layout COBOL source):
+
+program-id.h.procedure division.display "Hello, world!".
+
+# Compilation occurs without errors:
+
+cobc -x smallest.cob
+./smallest
+Hello, world! 

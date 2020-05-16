@@ -1,0 +1,7 @@
+000001 IDENTIFICATION DIVISION.
+       PROGRAM-ID. Hello.
+       AUTHOR FMORAESTEC.
+
+       PROCEDURE DIVISION.
+           DISPLAY "Hello World in COBOL".
+       STOP RUN.

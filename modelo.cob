@@ -1,0 +1,20 @@
+       IDENTIFICATION DIVISION.
+         PROGRAM-ID. xXx.
+         AUTHOR FMORAESTEC.
+         INSTALATION.
+         DATE-WRITTEN.
+         DATE-COMPILED .
+         SECURITY .
+
+       ENVIRONMENT DIVISION.
+         CONFIGURATION SECTION.
+         INPUT-OUTPUT SECTION.
+       
+       DATA DIVISION.
+         FILE SECTION.
+         WORKING-STORAGE SECTION.
+       
+       PROCEDURE DIVISION.
+         DISPLAY "Messagem"
+
+       STOP RUN.
